@@ -5,26 +5,19 @@ import { COLORS, SPACING, RADII, FONTS } from '../theme';
 
 export default function ProfileScreen() {
   const [theme, setTheme] = useState('light');
-  const currentTheme = COLORS[theme];
   const [isFollowing, setIsFollowing] = useState(false);
 
+  const currentTheme = COLORS[theme];
 
-  const toggleFollow = () => {
-  setIsFollowing(!isFollowing);
-};
-
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+  const toggleFollow = () => setIsFollowing(!isFollowing);
 
   // Responsive logic
   const { width } = useWindowDimensions();
-  const isLargeScreen = width > 500; // tablet gibi geniş ekranlar için
+  const isLargeScreen = width > 500;
 
   return (
     <View style={[styles.container, { backgroundColor: currentTheme.bg }]}>
-      
       {/* Theme Toggle Button */}
       <Pressable onPress={toggleTheme} style={styles.themeToggle}>
         <Ionicons
@@ -41,8 +34,8 @@ export default function ProfileScreen() {
           {
             backgroundColor: currentTheme.card,
             padding: isLargeScreen ? SPACING.xl : SPACING.lg,
-            width: isLargeScreen ? '60%' : '85%',
-          },
+            width: isLargeScreen ? '60%' : '85%'
+          }
         ]}
       >
         <Ionicons
@@ -50,10 +43,9 @@ export default function ProfileScreen() {
           size={isLargeScreen ? 100 : 80}
           color={currentTheme.text}
         />
+
         <Text style={[styles.name, { color: currentTheme.text }]}>John Doe</Text>
-        <Text style={[styles.role, { color: currentTheme.text }]}>
-          Mobile Developer
-        </Text>
+        <Text style={[styles.role, { color: currentTheme.text }]}>Mobile Developer</Text>
 
         {/* Like Button */}
         <Pressable
@@ -66,36 +58,25 @@ export default function ProfileScreen() {
           <Ionicons name="heart" size={24} color="#fff" />
           <Text style={styles.likeText}>Like</Text>
         </Pressable>
-        <View style={styles.extraInfo}>
-  <Ionicons name="location-outline" size={16} color={currentTheme.text} />
-  <Text style={[styles.extraText, { color: currentTheme.text }]}>
-    New York, USA
-  </Text>
-</View>
-<Text style={[styles.extraText, { color: currentTheme.text, marginTop: SPACING.sm }]}>
-  Passionate mobile developer with 5 years of experience.
-</Text>
 
+        {/* Follow Button */}
         <Pressable
-  style={({ pressed }) => [
-    styles.followButton,
-    {
-      backgroundColor: pressed
-        ? isFollowing
-          ? '#1d3557'
-          : '#457b9d'
-        : isFollowing
-        ? '#1d3557'
-        : '#457b9d',
-    },
-  ]}
-  onPress={toggleFollow}
->
-  <Text style={styles.followText}>
-    {isFollowing ? 'Following' : 'Follow'}
-  </Text>
-</Pressable>
-
+          style={({ pressed }) => [
+            styles.followButton,
+            {
+              backgroundColor: pressed
+                ? isFollowing
+                  ? '#1d3557'
+                  : '#457b9d'
+                : isFollowing
+                ? '#1d3557'
+                : '#457b9d',
+            },
+          ]}
+          onPress={toggleFollow}
+        >
+          <Text style={styles.followText}>{isFollowing ? 'Following' : 'Follow'}</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -149,27 +130,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: SPACING.sm,
   },
-    followButton: {
-  paddingVertical: SPACING.sm,
-  paddingHorizontal: SPACING.lg,
-  borderRadius: 50,
-  marginTop: SPACING.md,
-},
-followText: {
-  color: '#fff',
-  fontFamily: FONTS.bold,
-  fontSize: 16,
-},
-extraInfo: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginTop: SPACING.sm,
-},
-extraText: {
-  fontFamily: FONTS.regular,
-  fontSize: 14,
-  marginLeft: SPACING.sm,
-},
-
-
+  followButton: {
+    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.lg,
+    borderRadius: 50,
+    marginTop: SPACING.md,
+  },
+  followText: {
+    color: '#fff',
+    fontFamily: FONTS.bold,
+    fontSize: 16,
+  },
 });
